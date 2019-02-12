@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void bookTwoShow(View v) {
-        Intent intent = new Intent(this, Book2.class);
+        Intent intent = new Intent(this, CarnetIndex.class);
         startActivity(intent);
     }
 }

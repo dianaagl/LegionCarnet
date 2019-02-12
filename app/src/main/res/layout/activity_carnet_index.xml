@@ -6,12 +6,26 @@
     android:layout_height="match_parent"
     tools:context=".CarnetIndex">
 
+<ListView
+    android:id="@+id/chapters_listview_id"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+</ListView>
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:onClick="beginning"
+        android:text="BEGINNING" />
 
     <Button
         android:id="@+id/button6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:onClick="fle"
         android:text="FLE" />
 
     <Button
@@ -19,6 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:onClick="viewCourante"
         android:text="VIE COURANTE" />
 
     <Button
@@ -26,6 +41,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:onClick="combat"
         android:text="COMBAT" />
 
     <Button
@@ -33,6 +49,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:onClick="armement"
         android:text="ARMEMENT" />
 
     <Button
@@ -40,6 +57,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:onClick="nbc"
         android:text="NBC" />
 
     <Button
@@ -47,6 +65,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:onClick="transmissions"
         android:text="TRANSMISSION" />
 
     <Button
@@ -54,6 +73,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:onClick="topographie"
         android:text="TOPOGRAPHIE" />
 
     <Button
@@ -61,6 +81,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:onClick="eps"
         android:text="EPS" />
 
     <Button
@@ -68,6 +89,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:onClick="secourisme"
         android:text="SECOURISME" />
 
     <Button
@@ -75,6 +97,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:onClick="reglement"
         android:text="REGLEMENT" />
 
     <Button
@@ -82,5 +105,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:onClick="reglement"
         android:text="IEC" />
 </LinearLayout>

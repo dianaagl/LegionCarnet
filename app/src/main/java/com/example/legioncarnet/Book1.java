@@ -21,6 +21,8 @@ public class Book1 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book1);
 
+
+
         firstPicNumber = 200601;
         lastPicNumber = 200667;
         imgView = (ImageView) findViewById(R.id.imageView);

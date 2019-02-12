@@ -4,4 +4,6 @@
     <string name="title_activity_book_one">BookOne</string>
     <string name="pic_name_string">carnetdechants%d</string>
     <string name="book2_name_string">lecarnetdulegionnaire%03d</string>
+    <string name="prev_string">prev</string>
+    <string name="next_string">next</string>
 </resources>

@@ -1,31 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:orientation="vertical" xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:orientation="vertical"
     tools:context=".MainActivity"
+
     tools:showIn="@layout/activity_main">
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:text="CHANTS"
-        android:onClick="bookOneShow" />
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:text="CARNET"
-        android:onClick="bookTwoShow" />
 
     <ImageView
+
+
         android:id="@+id/imageView2"
         android:layout_width="match_parent"
-        android:layout_height="456dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
         app:srcCompat="@drawable/legiondisk" />
 
+    <RelativeLayout
+        android:gravity="bottom"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <Button
+            android:id="@+id/button_carnet"
+            style="@style/Base.Widget.AppCompat.Button.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="bookOneShow"
+            android:text="CHANTS" />
+
+        <Button
+            android:layout_below="@+id/button_carnet"
+            style="@style/Base.Widget.AppCompat.Button.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="bookTwoShow"
+            android:text="CARNET" />
+    </RelativeLayout>
 </LinearLayout>

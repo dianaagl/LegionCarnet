@@ -3,6 +3,7 @@ package com.example.legioncarnet;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -27,6 +28,11 @@ public class Book1 extends AppCompatActivity {
         lastPicNumber = 200667;
         imgView = (ImageView) findViewById(R.id.imageView);
         imgView.setTag(firstPicNumber);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
 
     public void previous(View v) {

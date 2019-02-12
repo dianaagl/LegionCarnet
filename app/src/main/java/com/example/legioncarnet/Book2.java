@@ -17,42 +17,41 @@ public class Book2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book2);
 
+
         formatString = getString(R.string.book2_name_string);
         firstPicNumber = 001;
         lastPicNumber = 141;
         imgView = (ImageView) findViewById(R.id.book2_image_id);
-        imgView.setTag(firstPicNumber);
 
+        Bundle bundle = getIntent().getExtras();
+        int val =  getIntent().getIntExtra(CarnetIndex.PAGE_NUMBER,0);
+        setImage(val);
 //        Bundle b = getIntent().getExtras();
 //        int id = b.getInt("id");
     }
 
-    public void setImage() {
+    void setImage( int picNumber ){
+
+            String resourceName = String.format(formatString, picNumber);
+            int drawableResourceId = this.getResources().getIdentifier(resourceName, "drawable", this.getPackageName());
+
+            imgView.setImageDrawable(getDrawable(drawableResourceId));
+            imgView.setTag(picNumber);
 
     }
 
     public void previous(View v) {
         int val = Integer.parseInt(imgView.getTag().toString());
         if(val > firstPicNumber) {
-            String resourceName = String.format(formatString, val - 1);
-            int drawableResourceId = this.getResources().getIdentifier(resourceName, "drawable", this.getPackageName());
-
-            imgView.setImageDrawable(getDrawable(drawableResourceId));
-            imgView.setTag(val - 1);
+            setImage(val - 1);
         }
-
     }
 
     public void next(View v) {
 
         int val = Integer.parseInt(imgView.getTag().toString());
         if(val < lastPicNumber) {
-            String resourceName = String.format(formatString, val + 1);
-            int drawableResourceId = this.getResources().getIdentifier(resourceName, "drawable",
-                    this.getPackageName());
-
-            imgView.setImageDrawable(getDrawable(drawableResourceId));
-            imgView.setTag(val + 1);
+           setImage(val + 1);
         }
     }
 }

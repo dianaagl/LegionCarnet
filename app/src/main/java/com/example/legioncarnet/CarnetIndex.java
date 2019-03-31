@@ -1,34 +1,38 @@
 package com.example.legioncarnet;
 
+import android.content.Context;
 import android.content.Intent;
+import android.os.Debug;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.AsyncTaskLoader;
+import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.zip.Inflater;
 
 public class CarnetIndex extends AppCompatActivity {
 
 
     public static final String PAGE_NUMBER = "page_number";
-    private  ArrayList<Integer> pages;
-    private Object[] pag;
-    private ArrayList<String> chapters;
+
+    private ArrayList<Chapter> chapters;
     private ListView chaptersListview;
+    private LayoutInflater lInflater;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,21 +44,34 @@ public class CarnetIndex extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        lInflater = (LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);
+
 
         chaptersListview = findViewById(R.id.chapters_listview_id);
-        fillChapterMap();
-        createChapters();
+        final int firstPage = getIntent().getIntExtra(MainActivity.FIRST_PAGE, 0);
+        final int lastPage = getIntent().getIntExtra(MainActivity.LAST_PAGE, 0);
+        final String formatString = getIntent().getStringExtra(MainActivity.IMAGE_FORMAT_NAME);
+
+        fillChapterMap(formatString);
+        PagesAdapter adapter = new PagesAdapter(chapters);
+
+        chaptersListview.setAdapter(adapter);
         chaptersListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent i = new Intent(CarnetIndex.this, Book2.class);
-                i.putExtra(PAGE_NUMBER, Integer.parseInt(pag[position].toString()));
+                Intent i = new Intent(CarnetIndex.this, Book.class);
+                i.putExtra(PAGE_NUMBER, chapters.get(position).getPage());
+                i.putExtra(MainActivity.FIRST_PAGE, firstPage);
+                i.putExtra(MainActivity.LAST_PAGE, lastPage);
+                i.putExtra(MainActivity.IMAGE_FORMAT_NAME, formatString);
+
                 startActivity(i);
             }
         });
 
 
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -66,58 +83,74 @@ public class CarnetIndex extends AppCompatActivity {
         }
     }
 
-    private void createChapters(){
-        ArrayList<HashMap<String, Object>> arrayList = new ArrayList<>();
-        //arrayList.add(chapterMap);
-        HashMap<String, Object> m;
-        Object [] chapt = chapters.toArray();
-        pag = pages.toArray();
-         for (int i = 0; i < chapters.size(); i++) {
-            m = new HashMap<String, Object>();
-            m.put("chapter_name",chapt[i]);
-            m.put("chapter_page", pag[i]);
 
-            arrayList.add(m);
+
+    private void fillChapterMap(String book) {
+        if (book.equals(getString(R.string.chants_name_string))) {
+
+            chapters = new ArrayList<Chapter>();
+            chapters.add(new Chapter(1,"NOUS SOMMES TOUS DES VOLONTAIRES"));
+            chapters.add(new Chapter(60,"KEPI BLANC"));
+        } else
+
+        {
+
+            chapters = new ArrayList<Chapter>();
+
+            chapters.add(new Chapter(1,"Beginning"));
+            chapters.add(new Chapter(7,"FLE"));
+            chapters.add(new Chapter(25,"Viewcourante"));
+            chapters.add(new Chapter(40,"Combat"));
+            chapters.add(new Chapter(63,"Armement"));
+            chapters.add(new Chapter(82,"NBC"));
+            chapters.add(new Chapter(96,"Transmissions"));
+            chapters.add(new Chapter(104,"Topographie"));
+            chapters.add(new Chapter(114,"Eps"));
+            chapters.add(new Chapter(122,"Secourisme"));
+            chapters.add(new Chapter(131,"Reglement"));
+            chapters.add(new Chapter(132,"IEC"));
+
+        }
+    }
+    public class PagesAdapter extends BaseAdapter{
+        private ArrayList<Chapter> chaptsList;
+        public PagesAdapter(ArrayList<Chapter> chapts) {
+            chaptsList = chapts;
         }
 
-        SimpleAdapter adapter = new SimpleAdapter(
-                this, arrayList,
-                R.layout.chapte_item_layout,
-                new String []{"chapter_name","chapter_page"}
-                ,new int[]{R.id.chapter_name_id, R.id.chapter_page_id});
-        chaptersListview.setAdapter(adapter);
+        @Override
+        public int getCount() {
+            return chaptsList.size();
+        }
 
+        @Override
+        public Object getItem(int i) {
+            return chaptsList.get(i);
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return chaptsList.get(i).hashCode();
+        }
+
+        @Override
+        public View getView(int i, View view, ViewGroup viewGroup) {
+
+            View convView = view;
+            if (convView == null) {
+                convView = lInflater.inflate(R.layout.chapte_item_layout, viewGroup, false);
+            }
+            ((TextView) convView.findViewById(R.id.chapter_name_id)).setText(chaptsList.get(i).getName());
+            ((TextView) convView.findViewById(R.id.chapter_page_id)).setText(String.valueOf(chaptsList.get(i).getPage()));
+
+
+            convView.setTag(i);
+
+            return convView;
+
+        }
     }
-
-    private void fillChapterMap() {
-        pages = new ArrayList<Integer>();
-        chapters = new ArrayList<String>();
-        pages.add(1);
-        pages.add(7);
-        pages.add(25);
-        pages.add(40);
-        pages.add(63);
-        pages.add(82);
-        pages.add(96);
-        pages.add(104);
-        pages.add(114);
-        pages.add(122);
-        pages.add(131);
-        pages.add(132);
-
-        chapters.add("Beginning");
-        chapters.add("FLE");
-        chapters.add( "Viewcourante");
-        chapters.add("Combat");
-        chapters.add("Armement");
-        chapters.add("NBC");
-        chapters.add("Transmissions");
-        chapters.add("Topographie");
-        chapters.add("Eps");
-        chapters.add("Secourisme");
-        chapters.add("Reglement");
-        chapters.add("IEC");
-    }
-
-
 }
+
+
+

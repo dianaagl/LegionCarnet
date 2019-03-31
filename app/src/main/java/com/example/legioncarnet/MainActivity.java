@@ -13,6 +13,11 @@ import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final String IMAGE_FORMAT_NAME = "imgName";
+    public static final String FIRST_PAGE = "first";
+    public static final String LAST_PAGE = "last";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,12 +59,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void bookOneShow(View v) {
-        Intent intent = new Intent(this, Book1.class);
+        Intent intent = new Intent(this, CarnetIndex.class);
+        intent.putExtra(IMAGE_FORMAT_NAME, getString(R.string.chants_name_string));
+        intent.putExtra(FIRST_PAGE, 200601);
+        intent.putExtra(LAST_PAGE, 200667);
         startActivity(intent);
     }
 
     public void bookTwoShow(View v) {
         Intent intent = new Intent(this, CarnetIndex.class);
+        intent.putExtra(IMAGE_FORMAT_NAME, getString(R.string.carnet_name_string));
+        intent.putExtra(FIRST_PAGE, 001);
+        intent.putExtra(LAST_PAGE, 141);
         startActivity(intent);
     }
 }
